@@ -1,4 +1,4 @@
-// Importar Sequelize (la clase, no la instancia)
+// Importar Sequelize
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
 
