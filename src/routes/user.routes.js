@@ -1,15 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
-const { validateToken } = require('../middlewares/auth.middleware');
+const {authenticateToken, checkRole}= require('../middlewares/auth.middleware');
+const ROLES = require('../utils/constants');
+const errorhandler = require('../utils/error.middleware');
 
-// rutas publicas
-router.post('/register', userController.register);
-router.post('/login', userController.login);
+router.post('/users/create', authenticateToken, checkRole(ROLES.ADMIN), userController.createUser);
+router.put('/users/update/:id', authenticateToken, checkRole(ROLES.ADMIN), userController.updateUser);
+router.get('/users', authenticateToken, checkRole(ROLES.ADMIN), userController.getAllUsersByAdministadorId);
+router.delete('/users/delete/:id', authenticateToken, checkRole(ROLES.ADMIN), userController.deleteUser);
+router.get('/users/rol/:id', authenticateToken, checkRole(ROLES.ADMIN), userController.getAllUsersByRolId);
 
-// rutas protegidas (require authentication)
-router.get('/profile', validateToken, userController.getProfile);
-router.put('/profile', validateToken, userController.updateProfile);
-router.delete('/account', validateToken, userController.deleteAccount);
+router.use(errorhandler);
 
 module.exports = router;
+
