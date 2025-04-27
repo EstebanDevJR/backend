@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const ROLES = require('./utils/constants.js'); // Corregí la ruta de importación
+const ROLES = require('./utils/constants.js');
 
 // Cargar variables de entorno
 dotenv.config();

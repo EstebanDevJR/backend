@@ -17,5 +17,17 @@ app.use('/api/v1', userRoutes);
 app.use('/api/v1', authRoutes);
 app.use('/api/v1', projectRoutes);
 
+app.get('/api/v1/healthcheck', (req, res) => {
+    res.status(200).json({ status: 'OK', message: 'API funcionando' });
+});
+
+app.get('/api/v1/healthcheck', (req, res) => {
+    res.status(200).json({ status: 'OK', message: 'API funcionando' });
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Algo salió mal en el servidor' });
+});
 // Exporta la aplicación para ser utilizada en otros archivos
 module.exports = app;
